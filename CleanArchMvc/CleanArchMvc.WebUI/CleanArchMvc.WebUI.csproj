@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Categories\wwwroot\**" />
+    <Content Remove="Views\Categories\wwwroot\**" />
+    <EmbeddedResource Remove="Views\Categories\wwwroot\**" />
+    <None Remove="Views\Categories\wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CleanArchMvc.Infra.Ioc\CleanArchMvc.Infra.Ioc.csproj" />
   </ItemGroup>
 

@@ -86,7 +86,7 @@ namespace CleanArchMvc.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var categoryDTO =  _categoryService.GetById(id);
+            var categoryDTO =  await _categoryService.GetById(id);
 
             if (categoryDTO == null) return NotFound();
 

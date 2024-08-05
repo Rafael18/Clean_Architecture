@@ -1,10 +1,11 @@
 ﻿using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Application.Interfaces;
-using CleanArchMvc.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchMvc.WebUI.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -42,7 +43,7 @@ namespace CleanArchMvc.WebUI.Controllers
         {
             var categoryDTO = await _categoryService.GetById(id);
 
-            if(categoryDTO == null) return NotFound();
+            if (categoryDTO == null) return NotFound();
 
             return View(categoryDTO);
         }
@@ -55,7 +56,8 @@ namespace CleanArchMvc.WebUI.Controllers
                 try
                 {
                     await _categoryService.Update(categoryDTO);
-                }catch (Exception)
+                }
+                catch (Exception)
                 {
                     throw;
                 }
@@ -66,6 +68,7 @@ namespace CleanArchMvc.WebUI.Controllers
             return View(categoryDTO);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -76,6 +79,7 @@ namespace CleanArchMvc.WebUI.Controllers
             return View(categoryDTO);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost(), ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -86,7 +90,7 @@ namespace CleanArchMvc.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var categoryDTO =  await _categoryService.GetById(id);
+            var categoryDTO = await _categoryService.GetById(id);
 
             if (categoryDTO == null) return NotFound();
 
